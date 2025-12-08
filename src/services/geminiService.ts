@@ -1,7 +1,7 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import type { EchoData } from '../types';
 
-const apiKey = process.env.VITE_GEMINI_API_KEY;
+const apiKey = process.env.VITE_API_KEY;
 
 export const findEchoesForFeeling = async (feeling: string): Promise<EchoData> => {
   if (!apiKey) {

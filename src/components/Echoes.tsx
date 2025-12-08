@@ -16,7 +16,7 @@ import {
   RefreshCw 
 } from 'lucide-react';
 import { findEchoesForFeeling, generateEchoArtifact } from '../services/geminiService';
-import type { EchoData } from '../types';
+import { EchoData } from '../types';
 
 // Constants
 const PLACEHOLDERS = [
@@ -118,9 +118,11 @@ const Echoes: React.FC = () => {
       const resultData = await findEchoesForFeeling(searchTerm);
       setData(resultData);
       setView('echo');
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      setError("The archive is silent. Please try again.");
+      // Show the actual error message to help debug API key issues
+      const errorMessage = err.message || "The archive is silent. Please try again.";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -232,6 +234,8 @@ const Echoes: React.FC = () => {
             ctx.font = 'bold 32px Sans-Serif';
             ctx.fillText(echo.title.toUpperCase(), 60, currentY);
             
+            // Meta (Creator / Year)
+            const metaWidth = ctx.measureText(echo.title.toUpperCase()).width;
             ctx.fillStyle = '#57534e'; // stone-600
             ctx.font = '24px Monospace';
             ctx.fillText(`${echo.creator} / ${echo.year}`, 60, currentY + 35);
@@ -336,7 +340,7 @@ const Echoes: React.FC = () => {
 
         {/* VIEW: INPUT */}
         {view === 'input' && (
-          <div className="flex-grow flex flex-col justify-center items-center max-w-2xl mx-auto w-full px-6 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+          <div className="flex-grow flex flex-col justify-center items-center max-w-2xl mx-auto w-full px-6">
             <div className="text-center mb-12">
                 <h1 className="text-3xl md:text-5xl font-light text-stone-200 leading-tight mb-4">
                 Trace your feeling.
