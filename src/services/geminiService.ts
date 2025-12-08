@@ -1,5 +1,5 @@
 import { GoogleGenAI, Type } from "@google/genai";
-import { EchoData } from "../types";
+import type { EchoData } from '../types';
 
 const apiKey = process.env.VITE_GEMINI_API_KEY;
 
