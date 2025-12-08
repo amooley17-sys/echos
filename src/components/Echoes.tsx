@@ -16,7 +16,7 @@ import {
   RefreshCw 
 } from 'lucide-react';
 import { findEchoesForFeeling, generateEchoArtifact } from '../services/geminiService';
-import { EchoData } from '../types';
+import type { EchoData } from '../types';
 
 // Constants
 const PLACEHOLDERS = [
@@ -234,8 +234,6 @@ const Echoes: React.FC = () => {
             ctx.font = 'bold 32px Sans-Serif';
             ctx.fillText(echo.title.toUpperCase(), 60, currentY);
             
-            // Meta (Creator / Year)
-            const metaWidth = ctx.measureText(echo.title.toUpperCase()).width;
             ctx.fillStyle = '#57534e'; // stone-600
             ctx.font = '24px Monospace';
             ctx.fillText(`${echo.creator} / ${echo.year}`, 60, currentY + 35);
